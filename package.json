@@ -41,5 +41,15 @@
     "@types/react": "^18.2.6",
     "typescript": "~5.3.3"
   },
-  "private": true
+  "description": "A customizable Expo template with NativeWind and TypeScript",
+  "keywords": [
+    "expo",
+    "template",
+    "typescript",
+    "nativewind",
+    "react-native"
+  ],
+  "homepage": "https://github.com/Valentine8342/Expo-Starter-Kit",
+  "author": "Mauro Garcia <contact@applab.design>",
+  "license": "MIT"
 }
