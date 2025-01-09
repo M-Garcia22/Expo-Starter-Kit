@@ -108,25 +108,59 @@ export function NotificationsSection({
         return;
       }
 
+      // Set up notification channel for Android
+      if (Platform.OS === 'android') {
+        await Notifications.setNotificationChannelAsync('reminders', {
+          name: 'Daily Reminders',
+          importance: Notifications.AndroidImportance.HIGH,
+          vibrationPattern: [0, 250, 250, 250],
+          lightColor: '#FF231F7C',
+          enableVibrate: true,
+          enableLights: true,
+        });
+      }
+
       await Notifications.cancelAllScheduledNotificationsAsync();
+
+      const now = new Date();
+      const scheduledTime = new Date(now);
+      scheduledTime.setHours(time.getHours());
+      scheduledTime.setMinutes(time.getMinutes());
+      scheduledTime.setSeconds(0);
+      
+      if (scheduledTime <= now) {
+        scheduledTime.setDate(scheduledTime.getDate() + 1);
+      }
+
+      const trigger = Platform.OS === 'ios' 
+        ? {
+            type: 'calendar',
+            hour: time.getHours(),
+            minute: time.getMinutes(),
+            repeats: true,
+          } as Notifications.CalendarTriggerInput
+        : {
+            type: 'daily',
+            hour: time.getHours(),
+            minute: time.getMinutes(),
+          } as Notifications.DailyTriggerInput;
 
       await Notifications.scheduleNotificationAsync({
         content: {
-          title: "Reminder Notification",
+          title: "Daily Reminder",
           body: "Your scheduled reminder is here!",
           sound: true,
+          ...(Platform.OS === 'android' && {
+            channelId: 'reminders',
+          }),
         },
-        trigger: {
-          type: 'calendar',
-          hour: time.getHours(),
-          minute: time.getMinutes(),
-          repeats: true,
-        } as Notifications.CalendarTriggerInput,
+        trigger,
       });
 
       Alert.alert('Success', `Reminder set for ${time.toLocaleTimeString()}`);
     } catch (error) {
-      Alert.alert('Error', 'Failed to schedule reminder');
+      console.error('Failed to schedule reminder:', error);
+      Alert.alert('Error', 'Failed to schedule reminder. Please try again.');
     }
   };
 
