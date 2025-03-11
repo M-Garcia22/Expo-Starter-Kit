@@ -1,6 +1,6 @@
 {
   "name": "expo-template-starter",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "main": "expo-router/entry",
   "scripts": {
     "prestart": "node scripts/generate-context-metadata.js",
