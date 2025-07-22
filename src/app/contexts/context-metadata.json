@@ -19,5 +19,26 @@
         "description": "the details of the network connection"
       }
     ]
+  },
+  "I18nContext": {
+    "name": "I18nContext",
+    "description": "Provides I18nContext functionality",
+    "annotations": [
+      {
+        "key": "language",
+        "type": "string",
+        "description": "the current selected language"
+      },
+      {
+        "key": "setLanguage",
+        "type": "function",
+        "description": "updates the selected language"
+      },
+      {
+        "key": "t",
+        "type": "function",
+        "description": "returns the translated string for a key"
+      }
+    ]
   }
 }

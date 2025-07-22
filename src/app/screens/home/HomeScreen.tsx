@@ -12,6 +12,7 @@ import {
 } from 'lucide-react-native';
 import { FeatureModal } from '../../components/molecules/FeatureModal';
 import { FEATURES } from '../../constants/featureDescriptions';
+import { useI18n } from '../../contexts/I18nContext';
 
 /**
  * QuickAccessCard Component
@@ -85,6 +86,7 @@ export function HomeScreen(): React.ReactElement {
   const { isDarkMode, accentColor } = useTheme();
   const [selectedFeature, setSelectedFeature] = React.useState<string | null>(null);
   const [isModalVisible, setIsModalVisible] = React.useState<boolean>(false);
+  const { t } = useI18n();
 
   const onRefresh = React.useCallback(async (): Promise<void> => {
     setRefreshing(true);
@@ -122,25 +124,25 @@ export function HomeScreen(): React.ReactElement {
           
           <View className="mt-8 mb-6">
             <Text className={`text-2xl font-bold mb-2 ${isDarkMode ? 'text-gray-100' : 'text-gray-900'}`}>
-              Quick Access
+              {t('quickAccess')}
             </Text>
             <Text className={`text-sm mb-6 ${isDarkMode ? 'text-gray-400' : 'text-gray-600'}`}>
-              Explore key features and functionalities
+              {t('quickAccessDescription')}
             </Text>
 
             <View className="gap-4">
               <View className="flex-row gap-4">
                 <QuickAccessCard
                   icon={Bell}
-                  title="Notifications"
-                  subtitle="Check your alerts"
+                  title={t('notifications')}
+                  subtitle={t('checkYourAlerts')}
                   onPress={() => handleQuickAction('notifications')}
                   testID="notifications-quick-access"
                 />
                 <QuickAccessCard
                   icon={Settings}
-                  title="Settings"
-                  subtitle="App preferences"
+                  title={t('settings')}
+                  subtitle={t('appPreferences')}
                   onPress={() => handleQuickAction('settings')}
                   testID="settings-quick-access"
                 />
@@ -149,8 +151,8 @@ export function HomeScreen(): React.ReactElement {
               <View className="flex-row gap-4">
                 <QuickAccessCard
                   icon={Palette}
-                  title="Theme"
-                  subtitle="Customize look"
+                  title={t('themeSettings')}
+                  subtitle={t('customizeLook')}
                   onPress={() => handleQuickAction('theme')}
                   testID="theme-quick-access"
                 />

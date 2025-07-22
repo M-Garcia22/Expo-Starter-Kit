@@ -5,6 +5,7 @@ import { Avatar } from '../atoms/Avatar';
 import { ProfileText } from '../atoms/ProfileText';
 import { ProfileAction } from '../molecules/ProfileAction';
 import { useTheme } from '../../contexts/ThemeContext';
+import { useI18n } from '../../contexts/I18nContext';
 
 interface ProfileHeaderProps {
   name: string;
@@ -32,6 +33,7 @@ export function ProfileHeader({
   testID 
 }: ProfileHeaderProps) {
   const { isDarkMode } = useTheme();
+  const { t } = useI18n();
 
   return (
     <View 
@@ -76,7 +78,7 @@ export function ProfileHeader({
         >
           <View className="flex-row items-center">
             <Edit2 size={20} color="white" />
-            <Text className="text-white ml-2">Edit Profile</Text>
+            <Text className="text-white ml-2">{t('editProfile')}</Text>
           </View>
         </TouchableOpacity>
         
@@ -86,7 +88,7 @@ export function ProfileHeader({
         >
           <View className="flex-row items-center">
             <Share2 size={20} color={isDarkMode ? 'white' : 'black'} />
-            <Text className={`ml-2 ${isDarkMode ? 'text-white' : 'text-black'}`}>Share</Text>
+            <Text className={`ml-2 ${isDarkMode ? 'text-white' : 'text-black'}`}>{t('share')}</Text>
           </View>
         </TouchableOpacity>
       </View>

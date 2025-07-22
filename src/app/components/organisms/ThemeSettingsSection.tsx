@@ -4,6 +4,7 @@ import { PaletteIcon, MoonIcon, SunIcon, CheckIcon } from 'lucide-react-native';
 import { SettingItem } from '../molecules/SettingItem';
 import { SettingsSwitch } from '../atoms/SettingsSwitch';
 import { useTheme } from '../../contexts/ThemeContext';
+import { useI18n } from '../../contexts/I18nContext';
 
 /**
  * Theme settings section component for managing app theme
@@ -25,6 +26,7 @@ export function ThemeSettingsSection() {
   const [isConfirmModalVisible, setIsConfirmModalVisible] = useState(false);
   const [customColor, setCustomColor] = useState(accentColor);
   const [pendingCustomColor, setPendingCustomColor] = useState('');
+  const { t } = useI18n();
 
   const renderAccentColorOptions = () => {
     const allColors = { ...ACCENT_COLORS, ...customColors.reduce((acc, color, index) => {
@@ -83,8 +85,8 @@ export function ThemeSettingsSection() {
     <View className="overflow-hidden">
       <SettingItem
         icon={isDarkMode ? MoonIcon : SunIcon}
-        label="Dark Mode"
-        description="Toggle between light and dark themes"
+        label={t('darkMode')}
+        description={t('darkModeDescription')}
         control={
           <SettingsSwitch
             value={isDarkMode}
@@ -100,8 +102,8 @@ export function ThemeSettingsSection() {
       
       <SettingItem
         icon={PaletteIcon}
-        label="Color Palette"
-        description="Customize app color scheme"
+        label={t('colorPalette')}
+        description={t('colorPalletteDescription')}
         control={
           <View className="flex-row flex-wrap items-center -mr-10 max-w-[70%]">
             {renderAccentColorOptions()}
@@ -160,7 +162,7 @@ export function ThemeSettingsSection() {
                 className="p-3 rounded-lg"
               >
                 <Text className={`${isDarkMode ? 'text-gray-100' : 'text-gray-900'}`}>
-                  Cancel
+                  {t('cancel')}
                 </Text>
               </TouchableOpacity>
               
@@ -171,7 +173,7 @@ export function ThemeSettingsSection() {
                   ${isDarkMode ? 'bg-blue-800' : 'bg-blue-500'}
                 `}
               >
-                <Text className="text-white">Save</Text>
+                <Text className="text-white">{t('save')}</Text>
               </TouchableOpacity>
             </View>
           </View>
@@ -194,7 +196,7 @@ export function ThemeSettingsSection() {
               text-xl font-bold mb-4 
               ${isDarkMode ? 'text-gray-100' : 'text-gray-900'}
             `}>
-              Add Color to Palette
+              {t('addColorToPalette')}
             </Text>
             
             <View 
@@ -208,7 +210,7 @@ export function ThemeSettingsSection() {
               text-base mb-4 text-center
               ${isDarkMode ? 'text-gray-300' : 'text-gray-700'}
             `}>
-              Do you want to add this color to your palette?
+              {t('addColorToPaletteConfirmation')}
             </Text>
             
             <View className="flex-row justify-between">
@@ -217,7 +219,7 @@ export function ThemeSettingsSection() {
                 className="p-3 rounded-lg"
               >
                 <Text className={`${isDarkMode ? 'text-gray-100' : 'text-gray-900'}`}>
-                  Cancel
+                  {t('cancel')}
                 </Text>
               </TouchableOpacity>
               
@@ -228,7 +230,7 @@ export function ThemeSettingsSection() {
                   ${isDarkMode ? 'bg-blue-800' : 'bg-blue-500'}
                 `}
               >
-                <Text className="text-white">Add to Palette</Text>
+                <Text className="text-white">{t('addToPalette')}</Text>
               </TouchableOpacity>
             </View>
           </View>

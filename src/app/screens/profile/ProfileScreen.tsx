@@ -3,6 +3,7 @@ import { ScrollView, View, Alert, Share } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { ProfileHeader } from '../../components/organisms/ProfileHeader';
 import { useTheme } from '../../contexts/ThemeContext';
+import { useI18n } from '../../contexts/I18nContext';
 
 /**
  * ProfileScreen Component
@@ -12,19 +13,22 @@ import { useTheme } from '../../contexts/ThemeContext';
  */
 export function ProfileScreen(): React.ReactElement {
   const { isDarkMode } = useTheme();
+  const { t } = useI18n();
 
   const handleEdit = () => {
-    Alert.alert('Edit Profile', 'Edit profile functionality will be implemented here');
+    const alertTitle = t('editProfile');
+    const alertMessage = t('editProfileAlertMessage');
+    Alert.alert(alertTitle, alertMessage);
   };
 
   const handleShare = async () => {
     try {
       await Share.share({
-        message: 'Check out my profile!',
-        title: 'Share Profile',
+        message: t('shareProfileMessage'),
+        title: t('shareProfileTitle'),
       });
     } catch (error) {
-      Alert.alert('Error', 'Failed to share profile');
+      Alert.alert(t('error'), t('shareProfileError'));
     }
   };
 
@@ -33,8 +37,8 @@ export function ProfileScreen(): React.ReactElement {
       <ScrollView className="flex-1">
         <ProfileHeader
           name="John Doe"
-          title="Software Developer"
-          bio="Passionate about building great mobile apps with React Native. Love to explore new technologies and share knowledge with the community."
+          title={t('profileHeaderTitle')}
+          bio={t('profileHeaderBio')}
           onEdit={handleEdit}
           onShare={handleShare}
           testID="profile-header"
