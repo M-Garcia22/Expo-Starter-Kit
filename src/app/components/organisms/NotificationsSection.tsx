@@ -6,6 +6,7 @@ import { SettingsSwitch } from '../atoms/SettingsSwitch';
 import { ReminderTimeModal } from '../molecules/ReminderTimeModal';
 import * as Notifications from 'expo-notifications';
 import { useTheme } from '../../contexts/ThemeContext';
+import { useI18n } from '../../contexts/I18nContext';
 
 interface NotificationsSectionProps {
   pushEnabled: boolean;
@@ -32,6 +33,7 @@ export function NotificationsSection({
   const [testPermissionsToggle, setTestPermissionsToggle] = useState(false);
   const [isReminderModalVisible, setIsReminderModalVisible] = useState(false);
   const [reminderTime, setReminderTime] = useState<Date | null>(null);
+  const { t } = useI18n();
 
   const handleTestPermissions = async () => {
     try {
@@ -168,8 +170,8 @@ export function NotificationsSection({
     <View className="overflow-hidden">
       <SettingItem
         icon={BellIcon}
-        label="Push Notifications"
-        description="Receive push notifications for important updates"
+        label={t('pushNotifications')}
+        description={t('pushNotificationsDesc')}
         control={
           <SettingsSwitch
             value={pushEnabled}
@@ -183,11 +185,11 @@ export function NotificationsSection({
       
       <SettingItem
         icon={CalendarIcon}
-        label="Reminder Notifications"
+        label={t('reminderNotifications')}
         description={
           reminderTime 
-            ? `Reminder set for ${reminderTime.toLocaleTimeString()}` 
-            : "Receive reminders for upcoming events"
+            ? `${t('reminderSetFor')} ${reminderTime.toLocaleTimeString()}` 
+            : t('reminderNotificationsDesc')
         }
         control={
           <SettingsSwitch
@@ -202,8 +204,8 @@ export function NotificationsSection({
       
       <SettingItem
         icon={ShieldCheckIcon}
-        label="Test Permissions"
-        description="Recheck and request notification permissions"
+        label={t('testPermissions')}
+        description={t('testPermissionsDesc')}
         control={
           <SettingsSwitch
             value={false}

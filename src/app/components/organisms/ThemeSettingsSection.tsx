@@ -85,8 +85,8 @@ export function ThemeSettingsSection() {
     <View className="overflow-hidden">
       <SettingItem
         icon={isDarkMode ? MoonIcon : SunIcon}
-        label="Dark Mode"
-        description="Toggle between light and dark themes"
+        label={t('darkMode')}
+        description={t('darkModeDescription')}
         control={
           <SettingsSwitch
             value={isDarkMode}
@@ -102,8 +102,8 @@ export function ThemeSettingsSection() {
       
       <SettingItem
         icon={PaletteIcon}
-        label="Color Palette"
-        description="Customize app color scheme"
+        label={t('colorPalette')}
+        description={t('colorPalletteDescription')}
         control={
           <View className="flex-row flex-wrap items-center -mr-10 max-w-[70%]">
             {renderAccentColorOptions()}
