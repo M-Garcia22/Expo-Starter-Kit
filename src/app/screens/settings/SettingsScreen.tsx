@@ -1,5 +1,6 @@
 import React, { useCallback, useState } from 'react';
 import { View, ScrollView, Text, TouchableOpacity } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
 import { useRoute, RouteProp } from '@react-navigation/native';
 import { useRouter } from 'expo-router';
 import { useNotifications } from '../../hooks/useNotifications';
@@ -10,6 +11,9 @@ import { BottomMenuSection } from '../../components/organisms/BottomMenuSection'
 import { ThemeSettingsSection } from '../../components/organisms/ThemeSettingsSection';
 import { DebugStorageSection } from '../../components/primitives/debug/DebugStorageSection';
 import { ExternalLink } from 'lucide-react-native';
+import { useI18n } from '../../contexts/I18nContext';
+import { LanguageSettingsSection } from '../../components/organisms/LanguageSettingsSection';
+
 
 type SettingsScreenRouteProp = RouteProp<{
   params: { 
@@ -32,6 +36,8 @@ export function SettingsScreen() {
   } = useNotifications();
 
   const { isDarkMode } = useTheme();
+  const { t } = useI18n();
+
 
   const onBottomMenuToggle = route.params?.onBottomMenuToggle || (() => {});
 
@@ -55,18 +61,18 @@ export function SettingsScreen() {
       className={`flex-1 ${isDarkMode ? 'bg-gray-900' : 'bg-gray-100'}`}
       keyboardShouldPersistTaps="handled"
     >
-      <View className="flex-1 min-h-screen justify-center p-4 space-y-6">
+      <View className="flex-1 min-h-screen justify-center p-4 space-y-6 pb-24">
         {!bottomMenuEnabled && (
           <>
             <View className={`${getSectionClassName(isDarkMode)} mt-8`}>
               <View className="px-4 py-3">
                 <SectionTitle>
-                  Navigation Demo
+                  {t('navigationDemo')}
                 </SectionTitle>
               </View>
               <View className="px-4 py-2">
                 <Text className={`text-sm mb-4 ${isDarkMode ? 'text-gray-400' : 'text-gray-600'}`}>
-                  Test smooth navigation transitions in non-tab routes
+                  {t('navigationDemoDescription')}
                 </Text>
                 <TouchableOpacity
                   onPress={navigateToExample}
@@ -77,7 +83,7 @@ export function SettingsScreen() {
                 >
                   <ExternalLink size={18} color="white" />
                   <Text className="text-white font-medium ml-2">
-                    Open Example Screen
+                    {t('openExampleScreen')}
                   </Text>
                 </TouchableOpacity>
               </View>
@@ -86,7 +92,7 @@ export function SettingsScreen() {
             <View className={getSectionClassName(isDarkMode)}>
               <View className="px-4 py-3">
                 <SectionTitle>
-                  Notifications
+                  {t('notifications')}
                 </SectionTitle>
               </View>
               <NotificationsSection
@@ -101,10 +107,19 @@ export function SettingsScreen() {
             <View className={getSectionClassName(isDarkMode)}>
               <View className="px-4 py-3">
                 <SectionTitle>
-                  Theme Settings
+                  {t('themeSettings')}
                 </SectionTitle>
               </View>
               <ThemeSettingsSection />
+            </View>
+
+            <View className={getSectionClassName(isDarkMode)}>
+              <View className="px-4 py-3">
+                <SectionTitle>
+                  {t('languageSettings')}
+                </SectionTitle>
+              </View>
+              <LanguageSettingsSection />
             </View>
           </>
         )}
@@ -112,7 +127,7 @@ export function SettingsScreen() {
         <View className={`${getSectionClassName(isDarkMode)} mb-10`}>
           <View className="px-4 py-3">
             <SectionTitle>
-              Debug Menu
+              {t('debugTools')}
             </SectionTitle>
           </View>
           <BottomMenuSection
@@ -125,7 +140,7 @@ export function SettingsScreen() {
           <View className={getSectionClassName(isDarkMode)}>
             <View className="px-4 py-3">
               <SectionTitle>
-                Debug: AsyncStorage
+                {t('debugAsyncStorage')}
               </SectionTitle>
             </View>
             <DebugStorageSection />

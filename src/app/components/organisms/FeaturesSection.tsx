@@ -1,9 +1,10 @@
 import React from 'react';
 import { View } from 'react-native';
-import { Rocket, Shield, Smartphone } from 'lucide-react-native';
+import { Languages, Rocket, Shield, Smartphone } from 'lucide-react-native';
 import { FeatureCard } from '../molecules/FeatureCard';
 import { SectionTitle } from '../atoms/SectionTitle';
 import { useTheme } from '../../contexts/ThemeContext';
+import { useI18n } from '../../contexts/I18nContext';
 
 interface FeaturesSectionProps {
   testID?: string;
@@ -17,18 +18,19 @@ interface FeaturesSectionProps {
  */
 export function FeaturesSection({ testID }: FeaturesSectionProps) {
   const { isDarkMode, accentColor } = useTheme();
+  const { t } = useI18n();
 
   return (
     <View 
       testID={testID} 
       className={isDarkMode ? 'bg-gray-900' : ''}
     >
-      <SectionTitle>Key Features</SectionTitle>
+      <SectionTitle>{t('keyFeatures')}</SectionTitle>
       <View className="space-y-4">
         <FeatureCard
           icon={Rocket}
-          title="Quick Start"
-          description="Pre-configured with TypeScript, NativeWind, and Navigation"
+          title={t('quickStart')}
+          description={t('quickStartDesc')}
           backgroundColor={isDarkMode ? "bg-gray-800" : "bg-blue-50"}
           iconColor={accentColor}
           testID="quick-start-feature"
@@ -36,8 +38,8 @@ export function FeaturesSection({ testID }: FeaturesSectionProps) {
         
         <FeatureCard
           icon={Shield}
-          title="Best Practices"
-          description="Follows modern React Native development standards"
+        title={t('bestPractices')}
+          description={t('bestPracticesDesc')}
           backgroundColor={isDarkMode ? "bg-gray-800" : "bg-purple-50"}
           iconColor={accentColor}
           testID="best-practices-feature"
@@ -45,11 +47,20 @@ export function FeaturesSection({ testID }: FeaturesSectionProps) {
 
         <FeatureCard
           icon={Smartphone}
-          title="Cross Platform"
-          description="Works seamlessly on iOS, Android, and Web"
+          title={t('crossPlatform')}
+          description={t('crossPlatformDesc')}
           backgroundColor={isDarkMode ? "bg-gray-800" : "bg-green-50"}
           iconColor={accentColor}
           testID="cross-platform-feature"
+        />
+
+        <FeatureCard
+          icon={Languages}
+          title={t('multiLanguageSupport')}
+          description={t('multiLanguageSupportDesc')}
+          backgroundColor={isDarkMode ? "bg-gray-800" : "bg-green-50"}
+          iconColor={accentColor}
+          testID="multi-language-support-feature"
         />
       </View>
     </View>

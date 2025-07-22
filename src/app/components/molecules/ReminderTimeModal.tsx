@@ -3,6 +3,7 @@ import { View, Text, Modal, TouchableOpacity, Platform } from 'react-native';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import { Clock } from 'lucide-react-native';
 import { useTheme } from '../../contexts/ThemeContext';
+import { useI18n } from '../../contexts/I18nContext';
 
 interface ReminderTimeModalProps {
   isVisible: boolean;
@@ -24,6 +25,7 @@ export function ReminderTimeModal({
   const [selectedTime, setSelectedTime] = useState(new Date());
   const [showPicker, setShowPicker] = useState(Platform.OS === 'ios');
   const { isDarkMode } = useTheme();
+  const { t } = useI18n();
 
   const handleTimeChange = (event: any, time?: Date) => {
     if (Platform.OS === 'android') {
@@ -84,7 +86,7 @@ export function ReminderTimeModal({
           <View className="flex-row items-center mb-8">
             <Clock size={24} className="mr-2" color={isDarkMode ? '#D1D5DB' : '#4B5563'} />
             <Text className={`text-xl font-semibold ${isDarkMode ? 'text-gray-100' : 'text-gray-800'}`}>
-              Set Reminder Time
+              {t('setReminderTime')}
             </Text>
           </View>
 
@@ -108,14 +110,14 @@ export function ReminderTimeModal({
               `}
             >
               <Text className={`${isDarkMode ? 'text-gray-100' : 'text-gray-800'}`}>
-                Cancel
+                {t('cancel')}
               </Text>
             </TouchableOpacity>
             <TouchableOpacity 
               onPress={handleSave} 
               className="bg-blue-500 px-6 py-3 rounded-lg"
             >
-              <Text className="text-white font-medium">Save</Text>
+              <Text className="text-white font-medium">{t('save')}</Text>
             </TouchableOpacity>
           </View>
         </View>
